@@ -56,7 +56,7 @@ Depedencies of MicroPro are listed below. You can click the software name to nav
 
 MicroPro accepts both single-read and paired-end sequenced reads with FASTQ format as inputs. To improve profiling accuracy, it's recommended to perform raw reads preprocessing including **adaptor removal** and **host genome removal**.
 
-### Installation
+### Getting started
 
 To install MicrobialPip, clone the github repository and enter MicrobialPip directory with
 
@@ -66,6 +66,12 @@ $ cd MicroPro/MicrobialPip
 ```
 
 (To install ViralPip, replace the second command with `$ cd MicroPro/ViralPip`.)
+
+URC and FCV are two useful tools required in MicroPro. Their source codes are in folder `src/`. To make them executable, run
+
+```
+$ chmod 755 utils/*
+```
 
 ### Parameters generation
 
