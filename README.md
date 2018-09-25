@@ -136,7 +136,7 @@ $ snakemake -j <#_cores> -p -s Snakefile-P
 
 The known and unknown abundance tables are stored in folder `res/`. Each of them has a 'csv' version as well as a 'rds' version, which can be opened and edited by R. Every table contains a sample-by-organism matrix with each entry representing a known/unknown organism's relative abundance in a sample. For MicrobialPip, 'centrifuge_species_abundance' is the known abundance table while 'unknown_abundance' is the unknown table. For ViralPip, 'centrifuge_viral_species_abundance' is for the known while 'unknown_viral_abundance' is for the unknown.
 
-The intermediate results are stored in corresponding folders. In particular, centrifuge results are stored in `1_centrifuge/`; cross-assembly results are in `3_cross_assembly/megahit_out/`; VirFinder results (ViralPip only) are in `4_virfinder/4_4_vf_summary/vf_results.rds`; Contig binning results are in `4_binning/bins_dir/` for MicrobialPip or `viral_3_binning/bins_dir/` for ViralPip.
+The intermediate results are stored in corresponding folders. In particular, centrifuge results are stored in `1_centrifuge/`; cross-assembly results are in `3_cross_assembly/megahit_out/`; VirFinder results (ViralPip only) are in `4_virfinder/4_4_vf_summary/vf_results.rds`; Contig binning results are in `5_binning/bins_dir/` for MicrobialPip or `viral_3_binning/bins_dir/` for ViralPip.
 
 The intermediate log and benchmark files are stored in `logs/` and `benchmarks/`. The benchmark file records the wall time and the memory usage of a particular intermediate process.
 
