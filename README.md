@@ -67,7 +67,7 @@ $ cd MicroPro/MicrobialPip
 
 (To install ViralPip, replace the second command with `$ cd MicroPro/ViralPip`.)
 
-URC and FCV are two useful tools required in MicroPro. Their source codes are in folder `src/`. To make them executable, run
+URC, URC-S and FCV are three useful tools required in MicroPro. Their source codes are in folder `src/`. To make them executable, run
 
 ```
 $ chmod 755 utils/*
