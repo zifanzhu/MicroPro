@@ -1,0 +1,40 @@
+fi = open('docs/parameters', 'r')
+f = fi.read().splitlines()
+fi.close()
+PATH_TO_DATA = f[0]
+FASTQ = f[1]
+PATH_TO_CTF = f[2]
+
+fi1 = open('docs/sample', 'r')
+f1 = fi1.read().splitlines()
+fi1.close()
+SAMPLE = f1
+
+
+rule centrifuge_alignment:
+    input:
+        PATH_TO_DATA + "/{sample}" + FASTQ
+    output:
+        classification = "1_centrifuge/{sample}_classification",
+        report = "1_centrifuge/{sample}_report"
+    log:
+        "logs/1_centrifuge/{sample}.log"
+    benchmark:
+        "benchmarks/1_centrifuge/{sample}.tsv"
+    shell:
+        "centrifuge -x " + PATH_TO_CTF + "/database/abv -q -t -U {input} "
+        "-S {output.classification} --report-file {output.report} &> {log}"
+
+
+rule ctf_species_abund:
+    input:
+        ["1_centrifuge/" + s + "_report" for s in SAMPLE]
+    output:
+        "res/centrifuge_species_abundance.csv",
+        "res/centrifuge_species_abundance.rds"
+    log:
+        "logs/1_centrifuge/ctf_species_abund.log"
+    benchmark:
+        "benchmarks/1_centrifuge/ctf_species_abund.tsv"
+    shell:
+        "R --no-save --file=scripts/ctf_abund.R &> {log}"

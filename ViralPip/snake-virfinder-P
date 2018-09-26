@@ -1,0 +1,68 @@
+include: "snake-known-P"
+include: "snake-cross-assembly-P"
+
+
+rule line_count:
+    input:
+        directory("3_cross_assembly/megahit_out")
+    output:
+        "4_virfinder/4_1_line_count/line_count"
+    log:
+        "logs/4_virfinder/line_count.log"
+    benchmark:
+        "benchmarks/4_virfinder/line_count.tsv"
+    shell:
+        "wc -l {input}/final.contigs.fa > {output} 2> {log}"
+
+
+rule separate_ctg_fa:
+    input:
+        "4_virfinder/4_1_line_count/line_count"
+    output:
+        dynamic("4_virfinder/4_2_sep_ctg/{no}.fasta")
+    shell:
+        "R --no-save --file=scripts/sep_ctg.R &> logs/4_virfinder/sep_ctg.log"
+
+
+rule virfinder_sep:
+    input:
+        "4_virfinder/4_2_sep_ctg/{no}.fasta"
+    output:
+        o1 = "4_virfinder/4_3_vf_sep/vf_results_{no}.rds",
+        o2 = "4_virfinder/4_3_vf_sep/vf_{no}.R"
+    log:
+        "logs/4_virfinder/vf_{no}.log"
+    benchmark:
+        "benchmarks/4_virfinder/vf_{no}.tsv"
+    shell:
+        "printf \"library(VirFinder)\\npred <- VF.pred(\\\"{input}\\\")\\n"
+        "saveRDS(pred, \\\"{output.o1}\\\")\" > {output.o2} && R --no-save "
+        "--file={output.o2} &> {log}"
+
+
+rule virfinder_summary:
+    input:
+        dynamic("4_virfinder/4_3_vf_sep/vf_results_{no}.rds")
+    output:
+        "4_virfinder/4_4_vf_summary/vf_results.rds",
+        "4_virfinder/4_4_vf_summary/vf_qv_0.2"
+    log:
+        "logs/4_virfinder/vf_summary.log"
+    benchmark:
+        "benchmarks/4_virfinder/vf_summary.tsv"
+    shell:
+        "R --no-save --file=scripts/vf.R &> {log}"
+
+
+rule vf_filtered_contig:
+    input:
+        i1 = "4_virfinder/4_4_vf_summary/vf_qv_0.2",
+        i2 = directory("3_cross_assembly/megahit_out")
+    output:
+        "viral_1_vf_filtered_contigs/vf_filtered_contig.fasta"
+    log:
+        "logs/viral_1_vf_filtered_contigs/FCV.log"
+    benchmark:
+        "benchmarks/viral_1_vf_filtered_contigs/FCV.tsv"
+    shell:
+        "./utils/FCV {input.i1} {input.i2}/final.contigs.fa {output} &> {log}"

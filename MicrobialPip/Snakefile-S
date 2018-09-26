@@ -1,0 +1,12 @@
+include: "snake-known-S"
+include: "snake-cross-assembly-S"
+include: "snake-map-to-ctg-S"
+include: "snake-binning-S"
+
+
+rule all:
+    input:
+        "res/centrifuge_species_abundance.csv",
+        "res/centrifuge_species_abundance.rds",
+        "res/unknown_abundance.csv",
+        "res/unknown_abundance.rds"

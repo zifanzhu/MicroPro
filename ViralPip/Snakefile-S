@@ -1,0 +1,13 @@
+include: "snake-known-S"
+include: "snake-cross-assembly-S"
+include: "snake-virfinder-S"
+include: "snake-map-to-vf-filtered-ctg-S"
+include: "snake-binning-S"
+
+
+rule all:
+    input:
+        "res/centrifuge_viral_species_abundance.csv",
+        "res/centrifuge_viral_species_abundance.rds",
+        "res/unknown_viral_abundance.csv",
+        "res/unknown_viral_abundance.rds"

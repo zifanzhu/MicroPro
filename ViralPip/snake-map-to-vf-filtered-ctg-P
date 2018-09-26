@@ -1,0 +1,40 @@
+include: "snake-known-P"
+include: "snake-cross-assembly-P"
+include: "snake-virfinder-P"
+
+
+rule index:
+    input:
+        "viral_1_vf_filtered_contigs/vf_filtered_contig.fasta"
+    output:
+        directory("viral_1_vf_filtered_contigs/index")
+    log:
+        "logs/viral_1_vf_filtered_contigs/index.log"
+    benchmark:
+        "benchmarks/viral_1_vf_filtered_contigs/index.tsv"
+    shell:
+        "mkdir {output} && cd {output} && "
+        "bwa index -p contig ../../{input} &> ../../{log}"
+
+
+rule bwa mem mapping:
+    input:
+        ind = directory("viral_1_vf_filtered_contigs/index"),
+        fq1 = "2_centrifuge_unmapped/{sample}" + PE[0] + "_unmapped.fastq",
+        fq2 = "2_centrifuge_unmapped/{sample}" + PE[1] + "_unmapped.fastq"
+    output:
+        sorted = "viral_2_map_to_vf_filtered_ctg/bam/{sample}.sorted",
+        ppm = "viral_2_map_to_vf_filtered_ctg/properly_paired_mapped/{sample}"
+              "_paired_mapped.bam",
+        idx = "viral_2_map_to_vf_filtered_ctg/properly_paired_mapped/{sample}"
+              ".idx"
+    log:
+        "logs/viral_2_map_to_vf_filtered_ctg/{sample}.log"
+    benchmark:
+        "benchmarks/viral_2_map_to_vf_filtered_ctg/{sample}.tsv"
+    shell:
+        "(bwa mem {input.ind}/contig {input.fq1} {input.fq2} | "
+        "samtools view -bS | samtools sort > {output.sorted} && "
+        "samtools view -b -F 4 -f 2 {output.sorted} > {output.ppm} && "
+        "samtools index {output.ppm} && "
+        "samtools idxstats {output.ppm} > {output.idx}) &> {log}"

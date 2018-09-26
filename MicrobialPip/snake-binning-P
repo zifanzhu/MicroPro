@@ -1,0 +1,51 @@
+include: "snake-known-P"
+include: "snake-cross-assembly-P"
+include: "snake-map-to-ctg-P"
+
+
+rule metbat2_binning:
+    input:
+        sorted = ["4_map_to_contigs/bam/" + s + ".sorted"
+                  for s in SAMPLE],
+        fa = directory("3_cross_assembly/megahit_out")
+    output:
+        dir = directory("5_binning/bins_dir"),
+        depth = "5_binning/depth.txt"
+    log:
+        "logs/5_binning/binning.log"
+    benchmark:
+        "benchmarks/5_binning/binning.tsv"
+    shell:
+        "(jgi_summarize_bam_contig_depths --outputDepth {output.depth} "
+        "{input.sorted} && metabat2 -i {input.fa}/final.contigs.fa "
+        "-a {output.depth} -o {output.dir}/bin -m 1500) &> {log}"
+
+
+rule bin_count:
+    input:
+        directory("5_binning/bins_dir")
+    output:
+        "5_binning/bin_count"
+    log:
+        "logs/5_binning/bin_count.log"
+    benchmark:
+        "benchmarks/5_binning/bin_count.tsv"
+    shell:
+        "ls {input} | wc -l > {output} 2> {log}"
+
+
+rule unknown_abund:
+    input:
+        i1 = "5_binning/bin_count",
+        i2 = ["4_map_to_contigs/properly_paired_mapped/" + s +
+              ".idx" for s in SAMPLE],
+        i3 = directory("3_cross_assembly/megahit_out")
+    output:
+        "res/unknown_abundance.csv",
+        "res/unknown_abundance.rds"
+    log:
+        "logs/5_binning/u_abund.log"
+    benchmark:
+        "benchmarks/5_binning/u_abund.tsv"
+    shell:
+        "R --no-save --file=scripts/u_abund.R &> {log}"

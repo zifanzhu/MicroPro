@@ -1,0 +1,42 @@
+include: "snake-known-S"
+
+
+rule unmapped_reads_from_ctf:
+    input:
+        i1 = PATH_TO_DATA + "/{sample}" + FASTQ,
+        ctf = "1_centrifuge/{sample}_classification"
+    output:
+        o1 = "2_centrifuge_unmapped/{sample}" + "_unmapped.fastq"
+    log:
+        "logs/2_centrifuge_unmapped/{sample}.log"
+    benchmark:
+        "benchmarks/2_centrifuge_unmapped/{sample}.tsv"
+    shell:
+        "./utils/URC-S {input.ctf} {input.i1} {output.o1} &> {log}"
+
+
+rule cat_unmapped_reads:
+    input:
+        i1 = ["2_centrifuge_unmapped/" + s + "_unmapped.fastq"
+              for s in SAMPLE]
+    output:
+        o1 = "3_cross_assembly/unmapped.fastq"
+    log:
+        "logs/3_cross_assembly/cat.log"
+    benchmark:
+        "benchmarks/3_cross_assembly/cat.tsv"
+    shell:
+        "cat {input.i1} > {output.o1} 2> {log}"
+
+
+rule megahit_assembly:
+    input:
+        i1 = "3_cross_assembly/unmapped.fastq",
+    output:
+        directory("3_cross_assembly/megahit_out")
+    log:
+        "logs/3_cross_assembly/assembly.log"
+    benchmark:
+        "benchmarks/3_cross_assembly/assembly.tsv"
+    shell:
+        "megahit -r {input.i1} -o {output} --min-contig-len 1500 &> {log}"

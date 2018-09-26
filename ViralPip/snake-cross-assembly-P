@@ -1,0 +1,61 @@
+include: "snake-known-P"
+
+
+rule unmapped_reads_from_ctf:
+    input:
+        i1 = PATH_TO_DATA + "/{sample}" + PE[0] + FASTQ,
+        i2 = PATH_TO_DATA + "/{sample}" + PE[1] + FASTQ,
+        ctf = "1_centrifuge/{sample}_classification"
+    output:
+        o1 = "2_centrifuge_unmapped/{sample}" + PE[0] + "_unmapped.fastq",
+        o2 = "2_centrifuge_unmapped/{sample}" + PE[1] + "_unmapped.fastq"
+    log:
+        "logs/2_centrifuge_unmapped/{sample}.log"
+    benchmark:
+        "benchmarks/2_centrifuge_unmapped/{sample}.tsv"
+    shell:
+        "./utils/URC {input.ctf} {input.i1} {input.i2} {output.o1} {output.o2} "
+        "&> {log}"
+
+
+rule cat_unmapped_reads_1:
+    input:
+        i1 = ["2_centrifuge_unmapped/" + s + PE[0] + "_unmapped.fastq"
+              for s in SAMPLE]
+    output:
+        o1 = "3_cross_assembly/1_unmapped.fastq"
+    log:
+        "logs/3_cross_assembly/cat_1.log"
+    benchmark:
+        "benchmarks/3_cross_assembly/cat_1.tsv"
+    shell:
+        "cat {input.i1} > {output.o1} 2> {log}"
+
+
+rule cat_unmapped_reads_2:
+    input:
+        i2 = ["2_centrifuge_unmapped/" + s + PE[1] + "_unmapped.fastq"
+              for s in SAMPLE]
+    output:
+        o2 = "3_cross_assembly/2_unmapped.fastq"
+    log:
+        "logs/3_cross_assembly/cat_2.log"
+    benchmark:
+        "benchmarks/3_cross_assembly/cat_2.tsv"
+    shell:
+        "cat {input.i2} > {output.o2} 2> {log}"
+
+
+rule megahit_assembly:
+    input:
+        i1 = "3_cross_assembly/1_unmapped.fastq",
+        i2 = "3_cross_assembly/2_unmapped.fastq"
+    output:
+        directory("3_cross_assembly/megahit_out")
+    log:
+        "logs/3_cross_assembly/assembly.log"
+    benchmark:
+        "benchmarks/3_cross_assembly/assembly.tsv"
+    shell:
+        "megahit -1 {input.i1} -2 {input.i2} -o {output} "
+        "--min-contig-len 1500 &> {log}"

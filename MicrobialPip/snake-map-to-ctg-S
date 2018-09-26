@@ -1,0 +1,38 @@
+include: "snake-known-S"
+include: "snake-cross-assembly-S"
+
+
+rule index:
+    input:
+        directory("3_cross_assembly/megahit_out")
+    output:
+        directory("4_map_to_contigs/index")
+    log:
+        "logs/4_map_to_contigs/index.log"
+    benchmark:
+        "benchmarks/4_map_to_contigs/index.tsv"
+    shell:
+        "mkdir {output} && cd {output} && "
+        "bwa index -p contig ../../{input}/final.contigs.fa &> ../../{log}"
+
+
+rule bwa mem mapping:
+    input:
+        ind = directory("4_map_to_contigs/index"),
+        fq1 = "2_centrifuge_unmapped/{sample}" + "_unmapped.fastq"
+    output:
+        sorted = "4_map_to_contigs/bam/{sample}.sorted",
+        ppm = "4_map_to_contigs/properly_paired_mapped/{sample}"
+              "_paired_mapped.bam",
+        idx = "4_map_to_contigs/properly_paired_mapped/{sample}"
+              ".idx"
+    log:
+        "logs/4_map_to_contigs/{sample}.log"
+    benchmark:
+        "benchmarks/4_map_to_contigs/{sample}.tsv"
+    shell:
+        "(bwa mem {input.ind}/contig {input.fq1} | "
+        "samtools view -bS | samtools sort > {output.sorted} && "
+        "samtools view -b -F 4 -f 2 {output.sorted} > {output.ppm} && "
+        "samtools index {output.ppm} && "
+        "samtools idxstats {output.ppm} > {output.idx}) &> {log}"

@@ -1,0 +1,52 @@
+include: "snake-known-P"
+include: "snake-cross-assembly-P"
+include: "snake-virfinder-P"
+include: "snake-map-to-vf-filtered-ctg-P"
+
+
+rule metbat2_binning:
+    input:
+        sorted = ["viral_2_map_to_vf_filtered_ctg/bam/" + s + ".sorted"
+                  for s in SAMPLE],
+        fa = "viral_1_vf_filtered_contigs/vf_filtered_contig.fasta"
+    output:
+        dir = directory("viral_3_binning/bins_dir"),
+        depth = "viral_3_binning/depth.txt"
+    log:
+        "logs/viral_3_binning/binning.log"
+    benchmark:
+        "benchmarks/viral_3_binning/binning.tsv"
+    shell:
+        "(jgi_summarize_bam_contig_depths --outputDepth {output.depth} "
+        "{input.sorted} && metabat2 -i {input.fa} -a {output.depth} -o "
+        "{output.dir}/bin -m 1500) &> {log}"
+
+
+rule bin_count:
+    input:
+        directory("viral_3_binning/bins_dir")
+    output:
+        "viral_3_binning/bin_count"
+    log:
+        "logs/viral_3_binning/bin_count.log"
+    benchmark:
+        "benchmarks/viral_3_binning/bin_count.tsv"
+    shell:
+        "ls {input} | wc -l > {output} 2> {log}"
+
+
+rule unknown_v_abund:
+    input:
+        i1 = "viral_3_binning/bin_count",
+        i2 = ["viral_2_map_to_vf_filtered_ctg/properly_paired_mapped/" + s +
+              ".idx" for s in SAMPLE],
+        i3 = "viral_1_vf_filtered_contigs/vf_filtered_contig.fasta"
+    output:
+        "res/unknown_viral_abundance.csv",
+        "res/unknown_viral_abundance.rds"
+    log:
+        "logs/viral_3_binning/u_v_abund.log"
+    benchmark:
+        "benchmarks/viral_3_binning/u_v_abund.tsv"
+    shell:
+        "R --no-save --file=scripts/u_v_abund.R &> {log}"
