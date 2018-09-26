@@ -67,7 +67,8 @@ if (bc < 10) {
   }
   
   feat_bin <- matrix(0, nrow(a), bc)
-  colnames(feat_bin) <- 1:bc 
+  colnames(feat_bin) <- 1:bc
+  rownames(feat_bin) <- a$V1
   for (i in 1:bc){
     fl <- as.matrix(feat[, which(result_bin[1, ] == i)])
     feat_bin[, i] <- apply(fl, 1, mean)
