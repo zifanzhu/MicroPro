@@ -22,10 +22,7 @@ rule bwa mem mapping:
         fq1 = "2_centrifuge_unmapped/{sample}" + "_unmapped.fastq"
     output:
         sorted = "4_map_to_contigs/bam/{sample}.sorted",
-        ppm = "4_map_to_contigs/properly_paired_mapped/{sample}"
-              "_paired_mapped.bam",
-        idx = "4_map_to_contigs/properly_paired_mapped/{sample}"
-              ".idx"
+        idx = "4_map_to_contigs/bam/{sample}.idx"
     log:
         "logs/4_map_to_contigs/{sample}.log"
     benchmark:
@@ -33,6 +30,5 @@ rule bwa mem mapping:
     shell:
         "(bwa mem {input.ind}/contig {input.fq1} | "
         "samtools view -bS | samtools sort > {output.sorted} && "
-        "samtools view -b -F 4 -f 2 {output.sorted} > {output.ppm} && "
-        "samtools index {output.ppm} && "
-        "samtools idxstats {output.ppm} > {output.idx}) &> {log}"
+        "samtools index {output.sorted} && "
+        "samtools idxstats {output.sorted} > {output.idx}) &> {log}"

@@ -23,10 +23,7 @@ rule bwa mem mapping:
         fq1 = "2_centrifuge_unmapped/{sample}" + "_unmapped.fastq"
     output:
         sorted = "viral_2_map_to_vf_filtered_ctg/bam/{sample}.sorted",
-        ppm = "viral_2_map_to_vf_filtered_ctg/properly_paired_mapped/{sample}"
-              "_paired_mapped.bam",
-        idx = "viral_2_map_to_vf_filtered_ctg/properly_paired_mapped/{sample}"
-              ".idx"
+        idx = "viral_2_map_to_vf_filtered_ctg/bam/{sample}.idx"
     log:
         "logs/viral_2_map_to_vf_filtered_ctg/{sample}.log"
     benchmark:
@@ -34,6 +31,5 @@ rule bwa mem mapping:
     shell:
         "(bwa mem {input.ind}/contig {input.fq1} | "
         "samtools view -bS | samtools sort > {output.sorted} && "
-        "samtools view -b -F 4 -f 2 {output.sorted} > {output.ppm} && "
-        "samtools index {output.ppm} && "
-        "samtools idxstats {output.ppm} > {output.idx}) &> {log}"
+        "samtools index {output.sorted} && "
+        "samtools idxstats {output.sorted} > {output.idx}) &> {log}"
