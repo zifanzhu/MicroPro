@@ -43,7 +43,7 @@ if (bc < 10) {
   }
   abund <- as.data.frame(abund)
   saveRDS(abund, "res/unknown_viral_abundance.rds")
-  write.csv(abund, "res/unknown_viral_abundance.rds", quote = F)
+  write.csv(abund, "res/unknown_viral_abundance.csv", quote = F)
 } else {
   bin <- list()
   for (i in 1:bc) {
