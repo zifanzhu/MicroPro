@@ -140,44 +140,6 @@ The intermediate results are stored in corresponding folders. In particular, cen
 
 The intermediate log and benchmark files are stored in `logs/` and `benchmarks/`. The benchmark file records the wall time and the memory usage of a particular intermediate process.
 
-### Running MicroPro module-by-module
-
-You can also run MicroPro module-by-module. For example, if you only want to get the known microbial abundance table (Module 1), for single-read data, run
-
-```
-$ snakemake -j <#_cores> -p -s snake-known-S res/centrifuge_species_abundance.csv
-```
-
-for paired-end data , run
-
-```
-$ snakemake -j <#_cores> -p -s snake-known-P res/centrifuge_species_abundance.csv
-```
-
-If you want to stop after cross-assembly (Modules 1 and 2), for single-read data, run
-
-```
-$ snakemake -j <#_cores> -p -s snake-cross-assembly-S 3_cross_assembly/megahit_out
-```
-
-for paired-end data , run
-
-```
-$ snakemake -j <#_cores> -p -s snake-cross-assembly-P 3_cross_assembly/megahit_out
-```
-
-If you want to stop after VirFinder (Modules 1, 2 and 3), for single-read data, run
-
-```
-$ snakemake -j <#_cores> -p -s snake-virfinder-S 4_virfinder/4_4_vf_summary/vf_results.rds
-```
-
-for paired-end data , run
-
-```
-$ snakemake -j <#_cores> -p -s snake-virfinder-P 4_virfinder/4_4_vf_summary/vf_results.rds
-```
-
 ## Copyright
 
 Copyright (C) 2018 University of Southern California
