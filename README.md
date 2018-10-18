@@ -152,6 +152,8 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+Commercial users should contact Prof. Fengzhu Sun (<fsun@usc.edu>), copyright at University of Southern California.
+
 ## References
 
 [1] Köster, Johannes, and Sven Rahmann. "Snakemake—a scalable bioinformatics workflow engine." Bioinformatics 28.19 (2012): 2520-2522.
