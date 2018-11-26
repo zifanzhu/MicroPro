@@ -140,51 +140,19 @@ The intermediate results are stored in corresponding folders. In particular, cen
 
 The intermediate log and benchmark files are stored in `logs/` and `benchmarks/`. The benchmark file records the wall time and the memory usage of a particular intermediate process.
 
-### Running MicroPro module-by-module
-
-You can also run MicroPro module-by-module. For example, if you only want to get the known microbial abundance table (Module 1), for single-read data, run
-
-```
-$ snakemake -j <#_cores> -p -s snake-known-S res/centrifuge_species_abundance.csv
-```
-
-for paired-end data , run
-
-```
-$ snakemake -j <#_cores> -p -s snake-known-P res/centrifuge_species_abundance.csv
-```
-
-If you want to stop after cross-assembly (Modules 1 and 2), for single-read data, run
-
-```
-$ snakemake -j <#_cores> -p -s snake-cross-assembly-S 3_cross_assembly/megahit_out
-```
-
-for paired-end data , run
-
-```
-$ snakemake -j <#_cores> -p -s snake-cross-assembly-P 3_cross_assembly/megahit_out
-```
-
-If you want to stop after VirFinder (Modules 1, 2 and 3), for single-read data, run
-
-```
-$ snakemake -j <#_cores> -p -s snake-virfinder-S 4_virfinder/4_4_vf_summary/vf_results.rds
-```
-
-for paired-end data , run
-
-```
-$ snakemake -j <#_cores> -p -s snake-virfinder-P 4_virfinder/4_4_vf_summary/vf_results.rds
-```
-
-## Copyright
+## Copyright and License Information
 
 Copyright (C) 2018 University of Southern California
 
 Authors: Zifan Zhu, Jie Ren, Fengzhu Sun
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Commercial users should contact Prof. Fengzhu Sun (<fsun@usc.edu>), copyright at University of Southern California.
 
 ## References
 
