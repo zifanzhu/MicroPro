@@ -1,4 +1,6 @@
-/* URC: get_unmapped_reads_from_centrifuge_output
+/* get_unmapped_reads_from_centrifuge_output (single-end seq version)
+ * designed for centrifuge version >= 1.0.3
+ * Zifan Zhu
  */
 
 #include <iostream>
@@ -24,6 +26,7 @@ int main (int argc, const char* const argv[]) {
 
   ifstream ctf (ctf_name.c_str());
   string line;
+  size_t f;
   unordered_map<string, int> name_hash;
 
 
@@ -31,7 +34,10 @@ int main (int argc, const char* const argv[]) {
   if (ctf.is_open()) {
     getline(ctf, line);
     while (getline(ctf, line)) {
-      name_hash[line.substr(0, line.find_first_of('\t'))] = 0;
+      f = line.find_first_of('\t') + 1;
+      if (line.substr(f, line.find_first_of('\t', f) - f) != "unclassified"){
+      	name_hash[line.substr(0, f - 1)] = 0;
+      }
     }
     ctf.close();
   }
