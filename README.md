@@ -24,7 +24,7 @@ Depedencies of MicroPro are listed below. You can click the software name to nav
     $ conda install -c bioconda -c conda-forge snakemake
     ```
 
-- [Centrifuge](https://ccb.jhu.edu/software/centrifuge/) (>= 1.0.3-beta)
+- [Centrifuge](https://ccb.jhu.edu/software/centrifuge/) (>= 1.0.3)
   - Centrifuge [2] is used for sequence alignment in Module 1. After installing Centrifuge, you need to download and index the reference genomes for bacteria, archaea and viruses from NCBI Refseq Database with the following commands: (See [Centrifuge manual](https://ccb.jhu.edu/software/centrifuge/manual.shtml#database-download-and-index-building) for more.)
 
     ```
