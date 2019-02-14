@@ -4,6 +4,7 @@ fi.close()
 PATH_TO_DATA = f[0]
 FASTQ = f[1]
 PATH_TO_CTF = f[2]
+MIN_CONTIG_LENGTH = f[3]
 
 fi1 = open('docs/sample', 'r')
 f1 = fi1.read().splitlines()

@@ -5,6 +5,7 @@ PATH_TO_DATA = f[0]
 PE = [f[1], f[2]]
 FASTQ = f[3]
 PATH_TO_CTF = f[4]
+MIN_CONTIG_LENGTH = f[5]
 
 fi1 = open('docs/sample', 'r')
 f1 = fi1.read().splitlines()
@@ -53,6 +54,6 @@ rule ctf_v_species_abund:
     log:
         "logs/1_centrifuge/ctf_v_species_abund.log"
     benchmark:
-        "benchmarks/1_centrifuge/ctf_v_species_abund.tsv" 
+        "benchmarks/1_centrifuge/ctf_v_species_abund.tsv"
     shell:
         "R --no-save --file=scripts/ctf_v_abund.R &> {log}"

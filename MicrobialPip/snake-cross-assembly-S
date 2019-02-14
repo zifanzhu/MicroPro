@@ -39,4 +39,5 @@ rule megahit_assembly:
     benchmark:
         "benchmarks/3_cross_assembly/assembly.tsv"
     shell:
-        "megahit -r {input.i1} -o {output} --min-contig-len 1500 &> {log}"
+        "megahit -r {input.i1} -o {output} --min-contig-len " +
+        MIN_CONTIG_LENGTH + " &> {log}"

@@ -58,4 +58,4 @@ rule megahit_assembly:
         "benchmarks/3_cross_assembly/assembly.tsv"
     shell:
         "megahit -1 {input.i1} -2 {input.i2} -o {output} "
-        "--min-contig-len 1500 &> {log}"
+        "--min-contig-len " + MIN_CONTIG_LENGTH + " &> {log}"

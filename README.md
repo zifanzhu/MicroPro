@@ -78,17 +78,17 @@ $ chmod 755 utils/*
 In this step, you tell MicroPro the location of your data and other parameters it needs. For single-read data, use
 
 ```
-$ R --no-save --file=scripts/parameters.R --args S <PATH_TO_DATA> <FASTQ> <PATH_TO_CENTRIFUGE>
+$ R --no-save --file=scripts/parameters.R --args S <PATH_TO_DATA> <FASTQ> <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
 For paired-end data, use
 
 
 ```
-$ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> <R1> <R2> <FASTQ> <PATH_TO_CENTRIFUGE>
+$ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> <R1> <R2> <FASTQ> <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
-`S` or `P` indicates single-read or paired-end data. `<PATH_TO_DATA>` is the directory of your data. `<PATH_TO_CENTRIFUGE>` is the directory where you install Centrifuge. It tells MicroPro where to locate the reference genomes. It's recommended to remove the final slash in `<PATH_TO_DATA>` and `<PATH_TO_CENTRIFUGE>`. For example, if your data path is '/home/data/'. It's better to replace `<PATH_TO_DATA>` with `/home/data` instead of `/home/data/`.
+`S` or `P` indicates single-read or paired-end data. `<PATH_TO_DATA>` is the directory of your data. `<PATH_TO_CENTRIFUGE>` is the directory where you install Centrifuge. It tells MicroPro where to locate the reference genomes. It's recommended to remove the final slash in `<PATH_TO_DATA>` and `<PATH_TO_CENTRIFUGE>`. For example, if your data path is '/home/data/'. It's better to replace `<PATH_TO_DATA>` with `/home/data` instead of `/home/data/`. `<MIN_CONTIG_LENGTH>` refers to the minimum length of the contigs to report in the cross-assembly step. We suggest setting it as 1000. But you may choose whatever fits your study.
 
 `<FASTQ>` or `<R1> <R2> <FASTQ>` instructs MicroPro how to generate sample names. `<FASTQ>` refers to the file extension, like `.fastq`, `.fq`, etc. `<R1>` and `<R2>` refer to the way that two pairs are represented in the file name, like `_1`, `_2` or `_R1`,`_R2`. For single-read data, MicroPro will remove `<FASTQ>` in the file name and use the rest as the sample name. For paired-end data, MicroPro will separate the file name by `<R1>` if the file is pair 1 (or `<R2>` accordingly) and use the part before `<R1>` (or `<R2>`) as the sample name. Note that this assumes the parts before `<R1>` and `<R2>` are the same for pair 1 and pair 2 file of same sample. If it's not the case, you should rename your data in this way.
 
@@ -134,7 +134,7 @@ $ snakemake -j <#_cores> -p -s Snakefile-P
 
 ### Outputs
 
-The known and unknown abundance tables are stored in folder `res/`. Each of them has a 'csv' version as well as a 'rds' version, which can be opened and edited by R. Every table contains a sample-by-organism matrix with each entry representing a known/unknown organism's relative abundance in a sample. For MicrobialPip, 'centrifuge_species_abundance' is the known abundance table while 'unknown_abundance' is the unknown table. For ViralPip, 'centrifuge_viral_species_abundance' is for the known while 'unknown_viral_abundance' is for the unknown. Note that a microbe is output in the abudance table only if it appears in at least one sample. **Thus, for viral abundance, it's possible that all the viruses of some sample have abundance zero since virus usually makes up a very small proportion of the whole microbial community.** 
+The known and unknown abundance tables are stored in folder `res/`. Each of them has a 'csv' version as well as a 'rds' version, which can be opened and edited by R. Every table contains a sample-by-organism matrix with each entry representing a known/unknown organism's relative abundance in a sample. For MicrobialPip, 'centrifuge_species_abundance' is the known abundance table while 'unknown_abundance' is the unknown table. For ViralPip, 'centrifuge_viral_species_abundance' is for the known while 'unknown_viral_abundance' is for the unknown. Note that a microbe is output in the abudance table only if it appears in at least one sample. **Thus, for viral abundance, it's possible that all the viruses of some sample have abundance zero since virus usually makes up a very small proportion of the whole microbial community.**
 
 The intermediate results are stored in corresponding folders. In particular, centrifuge results are stored in `1_centrifuge/`; cross-assembly results are in `3_cross_assembly/megahit_out/`; VirFinder results (ViralPip only) are in `4_virfinder/4_4_vf_summary/vf_results.rds`; Contig binning results are in `5_binning/bins_dir/` for MicrobialPip or `viral_3_binning/bins_dir/` for ViralPip.
 

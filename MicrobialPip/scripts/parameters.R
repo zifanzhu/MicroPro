@@ -9,6 +9,7 @@ if (args[1] == "P") {
   pe2 <- args[4]
   fq <- args[5]
   ctf <- args[6]
+  mcl <- args[7]
   
   system(paste0("ls ", datapath, " > docs/reads_name"))
   
@@ -29,6 +30,7 @@ if (args[1] == "P") {
   datapath <- args[2]
   fq <- args[3]
   ctf <- args[4]
+  mcl <- args[5]
   
   system(paste0("ls ", datapath, " > docs/reads_name"))
   
