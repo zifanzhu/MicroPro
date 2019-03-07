@@ -25,7 +25,7 @@ if (args[1] == "P") {
   
   sample <- unique(sample)
   write.table(sample, "docs/sample", quote = F, row.names = F, col.names = F)
-  write.table(args[c(2:6)], "docs/parameters", quote = F, row.names = F, col.names = F)
+  write.table(args[c(2:7)], "docs/parameters", quote = F, row.names = F, col.names = F)
 } else {
   datapath <- args[2]
   fq <- args[3]
