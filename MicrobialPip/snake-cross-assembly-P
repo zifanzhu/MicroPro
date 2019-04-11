@@ -46,6 +46,19 @@ rule cat_unmapped_reads_2:
         "cat {input.i2} > {output.o2} 2> {log}"
 
 
+rule wc_unmapped_reads:
+    input:
+        i1 = "3_cross_assembly/1_unmapped.fastq"
+    output:
+        "docs/wc_unmapped"
+    log:
+        "logs/3_cross_assembly/wc_unmapped.log"
+    benchmark:
+        "benchmarks/3_cross_assembly/wc_unmapped.tsv"
+    shell:
+        "wc -l {input.i1} > {output} 2> {log}"
+
+
 rule megahit_assembly:
     input:
         i1 = "3_cross_assembly/1_unmapped.fastq",

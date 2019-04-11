@@ -30,6 +30,19 @@ rule centrifuge_alignment:
         "{output.report} &> {log}"
 
 
+rule wc_all_reads:
+    input:
+        i1 = [PATH_TO_DATA + "/" + s + PE[0] + FASTQ for s in SAMPLE]
+    output:
+        "docs/wc_all"
+    log:
+        "logs/1_centrifuge/wc_all.log"
+    benchmark:
+        "benchmarks/1_centrifuge/wc_all.tsv"
+    shell:
+        "wc -l {input.i1} > {output} 2> {log}"
+
+
 rule ctf_species_abund:
     input:
         ["1_centrifuge/" + s + "_report" for s in SAMPLE]

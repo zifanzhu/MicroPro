@@ -66,3 +66,16 @@ rule vf_filtered_contig:
         "benchmarks/viral_1_vf_filtered_contigs/FCV.tsv"
     shell:
         "./utils/FCV {input.i1} {input.i2}/final.contigs.fa {output} &> {log}"
+
+
+rule wc_vf_filtered:
+    input:
+        "viral_1_vf_filtered_contigs/vf_filtered_contig.fasta"
+    output:
+        "4_virfinder/4_4_vf_summary/wc_vf_filtered"
+    log:
+        "logs/viral_1_vf_filtered_contigs/wc_vf_filtered.log"
+    benchmark:
+        "benchmarks/viral_1_vf_filtered_contigs/wc_vf_filtered.tsv"
+    shell:
+        "wc -l {input} > {output} 2> {log}"

@@ -84,3 +84,18 @@ if (bc < 10) {
   saveRDS(feat_bin, "res/unknown_viral_abundance.rds")
   write.csv(feat_bin, "res/unknown_viral_abundance.csv", quote = F)
 }
+
+# output combined abundance table #
+
+all <- fread("docs/wc_all")
+unmapped <- fread("docs/wc_unmapped")
+ump <- sum(all$V1) / unmapped$V1[1]
+ctg <- fread("4_virfinder/4_1_line_count/line_count")
+v_ctg <- fread("4_virfinder/4_4_vf_summary/wc_vf_filtered")
+vp <- v_ctg / ctg
+
+k_abund <- readRDS("res/centrifuge_viral_species_abundance.rds")
+uk_abund <- readRDS("res/unknown_viral_abundance.rds")
+abund <- cbind(k_abund * (1 - ump), uk_abund * ump * vp)
+saveRDS(abund, "res/combined_viral_abundance.rds")
+write.csv(abund, "res/combined_viral_abundance.csv", quote = F)
