@@ -40,15 +40,15 @@ rule wc_all_reads:
         "wc -l {input} > {output} 2> {log}"
 
 
-rule ctf_species_abund:
+rule ctf_abund:
     input:
         ["1_centrifuge/" + s + "_report" for s in SAMPLE]
     output:
-        "res/centrifuge_species_abundance.csv",
-        "res/centrifuge_species_abundance.rds"
+        "res/centrifuge_abundance.csv",
+        "res/centrifuge_abundance.rds"
     log:
-        "logs/1_centrifuge/ctf_species_abund.log"
+        "logs/1_centrifuge/ctf_abund.log"
     benchmark:
-        "benchmarks/1_centrifuge/ctf_species_abund.tsv"
+        "benchmarks/1_centrifuge/ctf_abund.tsv"
     shell:
         "R --no-save --file=scripts/ctf_abund.R &> {log}"

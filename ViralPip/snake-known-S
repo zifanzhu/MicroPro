@@ -40,30 +40,30 @@ rule wc_all_reads:
         "wc -l {input} > {output} 2> {log}"
 
 
-rule ctf_species_abund:
+rule ctf_abund:
     input:
         ["1_centrifuge/" + s + "_report" for s in SAMPLE]
     output:
-        "res/centrifuge_species_abundance.csv",
-        "res/centrifuge_species_abundance.rds"
+        "res/centrifuge_abundance.csv",
+        "res/centrifuge_abundance.rds"
     log:
-        "logs/1_centrifuge/ctf_species_abund.log"
+        "logs/1_centrifuge/ctf_abund.log"
     benchmark:
-        "benchmarks/1_centrifuge/ctf_species_abund.tsv"
+        "benchmarks/1_centrifuge/ctf_abund.tsv"
     shell:
         "R --no-save --file=scripts/ctf_abund.R &> {log}"
 
 
-rule ctf_v_species_abund:
+rule ctf_v_abund:
     input:
-        "res/centrifuge_species_abundance.csv",
-        "res/centrifuge_species_abundance.rds"
+        "res/centrifuge_abundance.csv",
+        "res/centrifuge_abundance.rds"
     output:
-        "res/centrifuge_viral_species_abundance.csv",
-        "res/centrifuge_viral_species_abundance.rds"
+        "res/centrifuge_viral_abundance.csv",
+        "res/centrifuge_viral_abundance.rds"
     log:
-        "logs/1_centrifuge/ctf_v_species_abund.log"
+        "logs/1_centrifuge/ctf_v_abund.log"
     benchmark:
-        "benchmarks/1_centrifuge/ctf_v_species_abund.tsv"
+        "benchmarks/1_centrifuge/ctf_v_abund.tsv"
     shell:
         "R --no-save --file=scripts/ctf_v_abund.R &> {log}"

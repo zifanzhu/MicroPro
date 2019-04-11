@@ -86,7 +86,7 @@ all <- fread("docs/wc_all")
 unmapped <- fread("docs/wc_unmapped")
 ump <- sum(all$V1) / unmapped$V1[1]
 
-k_abund <- readRDS("res/centrifuge_species_abundance.rds")
+k_abund <- readRDS("res/centrifuge_abundance.rds")
 uk_abund <- readRDS("res/unknown_abundance.rds")
 abund <- cbind(k_abund * (1 - ump), uk_abund * ump)
 saveRDS(abund, "res/combined_abundance.rds")

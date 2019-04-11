@@ -5,7 +5,7 @@ datapath <- "1_centrifuge/"
 maxid <- 2071980
 for (i in 1:nrow(a)) {
   x <- read.delim(paste0(datapath, a$V1[i], "_report"))
-  x <- subset(x, taxRank == "species")
+  x <- subset(x, abundance != 0)
   if (max(x$taxID) > maxid) {
     maxid <- max(x$taxID)
   }
@@ -18,7 +18,7 @@ rownames(feat) <- a$V1
 for (i in 1:nrow(a)) {
   cat(paste0("processing sample ", a$V1[i], "\n"))
   x <- read.delim(paste0(datapath, a$V1[i], "_report"))
-  x <- subset(x, taxRank == "species")
+  x <- subset(x, abundance != 0)
   for (j in 1:nrow(x)) {
     feat[a$V1[i],x$taxID[j]] <- x$abundance[j]
   }
@@ -30,5 +30,5 @@ if (length(zero) != 0){
 }
 
 feat<-as.data.frame(feat)
-write.csv(feat, "res/centrifuge_species_abundance.csv", quote = F)
-saveRDS(feat, "res/centrifuge_species_abundance.rds")
+write.csv(feat, "res/centrifuge_abundance.csv", quote = F)
+saveRDS(feat, "res/centrifuge_abundance.rds")
