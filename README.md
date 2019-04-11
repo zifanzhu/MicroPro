@@ -47,7 +47,8 @@ Depedencies of MicroPro are listed below. You can click the software name to nav
   - 'VirFinder' [4] utilizes a logistic regression model to differ viral sequences from bacterial sequences.
   - 'ShortRead' is a useful R package for input and output of files with various extensions like 'fasta', 'fastq', etc. These file formats are ubiquitous in metagenomics analysis.
   - 'data.table' allows fast data.frame operations.
-  - 'VirFinder', 'ShortRead' and 'data.table' are required in Module 3 (ViralPip only) and Module 4 respectively.
+  - 'ShortRead' and 'data.table' are required in Module 4.
+  - 'VirFinder' is required in Module 3 (ViralPip only), meaning that if you just use MicrobialPip, there is no need to install it.
 
 - [BWA](http://bio-bwa.sourceforge.net/) (>= 0.7.15) and [SAMtools](http://samtools.sourceforge.net/) (>= 1.4.1)
   - BWA [5] and SAMtools [6] are used for the generation of unknown organisms abundance table in Module 4.
