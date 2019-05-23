@@ -122,12 +122,16 @@ $ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> _1_001 _2_001 
 
 ### Installation testing
 
-
+To test if the installation is complete, run the following codes on a two-sample mock dataset:
 
 ```
-R --no-save --file=scripts/parameters.R --args P test/data _1 _2 .fq test 1000
+$ cd MicroPro/MicrobialPip
+$ chmod 755 utils/*
+$ R --no-save --file=scripts/parameters.R --args P test/data _1 _2 .fq test 1000
+$ snakemake -p -s Snakefile-P
 ```
 
+The pipeline takes about 15 min and outputs 6 abundance files under the 'res/' folder if everything is installed properly.
 
 ### Running MicrobialPip or ViralPip
 
