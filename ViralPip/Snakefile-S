@@ -10,4 +10,6 @@ rule all:
         "res/centrifuge_viral_abundance.csv",
         "res/centrifuge_viral_abundance.rds",
         "res/unknown_viral_abundance.csv",
-        "res/unknown_viral_abundance.rds"
+        "res/unknown_viral_abundance.rds",
+        "res/combined_viral_abundance.csv",
+        "res/combined_viral_abundance.rds"

@@ -9,4 +9,6 @@ rule all:
         "res/centrifuge_abundance.csv",
         "res/centrifuge_abundance.rds",
         "res/unknown_abundance.csv",
-        "res/unknown_abundance.rds"
+        "res/unknown_abundance.rds",
+        "res/combined_abundance.csv",
+        "res/combined_abundance.rds"

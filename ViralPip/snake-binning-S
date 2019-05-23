@@ -40,10 +40,14 @@ rule unknown_v_abund:
         i1 = "viral_3_binning/bin_count",
         i2 = ["viral_2_map_to_vf_filtered_ctg/bam/" + s +
               ".idx" for s in SAMPLE],
-        i3 = "viral_1_vf_filtered_contigs/vf_filtered_contig.fasta"
+        i3 = "viral_1_vf_filtered_contigs/vf_filtered_contig.fasta",
+        i4 = "docs/wc_all",
+        i5 = "docs/wc_unmapped"
     output:
         "res/unknown_viral_abundance.csv",
-        "res/unknown_viral_abundance.rds"
+        "res/unknown_viral_abundance.rds",
+        "res/combined_viral_abundance.csv",
+        "res/combined_viral_abundance.rds"
     log:
         "logs/viral_3_binning/u_v_abund_S.log"
     benchmark:

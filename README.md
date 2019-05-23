@@ -120,6 +120,15 @@ The correct command should be:
 $ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> _1_001 _2_001 .fq <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
+### Installation testing
+
+
+
+```
+R --no-save --file=scripts/parameters.R --args P test/data _1 _2 .fq test 1000
+```
+
+
 ### Running MicrobialPip or ViralPip
 
 Running MicrobialPip and ViralPip are exactly the same. You just need to make sure that you're in the folder corresponding to the pipeline you want. For single-read data, run

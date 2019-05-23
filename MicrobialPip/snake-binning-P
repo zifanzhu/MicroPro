@@ -39,10 +39,14 @@ rule unknown_abund:
         i1 = "5_binning/bin_count",
         i2 = ["4_map_to_contigs/properly_paired_mapped/" + s +
               ".idx" for s in SAMPLE],
-        i3 = directory("3_cross_assembly/megahit_out")
+        i3 = directory("3_cross_assembly/megahit_out"),
+        i4 = "docs/wc_all",
+        i5 = "docs/wc_unmapped"
     output:
         "res/unknown_abundance.csv",
-        "res/unknown_abundance.rds"
+        "res/unknown_abundance.rds",
+        "res/combined_abundance.csv",
+        "res/combined_abundance.rds"
     log:
         "logs/5_binning/u_abund.log"
     benchmark:
