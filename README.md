@@ -99,25 +99,25 @@ $ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> <R1> <R2> <FAS
 For example, for a single-read dataset of 3 samples with file names: `A.fastq B.fastq C.fastq`, MicroPro will use `A B C` as three samples' sample names, if you use the following command:
 
 ```
-$ R --no-save --file=scripts/parameters.R --args S <PATH_TO_DATA> .fastq <PATH_TO_CENTRIFUGE>
+$ R --no-save --file=scripts/parameters.R --args S <PATH_TO_DATA> .fastq <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
 For a paired-end dataset of 3 samples with file names: `A_1.fq A_2.fq B_1.fq B_2.fq C_1.fq C_2.fq`, MicroPro will also use `A B C` as three samples' sample names, if you use the following command:
 
 ```
-$ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> _1 _2 .fq <PATH_TO_CENTRIFUGE>
+$ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> _1 _2 .fq <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
 Note that the catenation of strings `<sample_name_generated_by_MicroPro>`, `<R1>` (or `<R2>`) and `<FASTQ>` must be the same as the corresponding file name, like in previous example, catenating `A`, `_1` and `.fq` will give you `A_1.fq`. This means if you have a paired-end dataset of 3 samples with file names: `A_1_001.fq A_2_001.fq B_1_001.fq B_2_001.fq C_1_001.fq C_2_001.fq`, the following command will result in an error when running MicroPro, since for example the catenation of `A`, `_1` and `.fq` is not a file name.
 
 ```
-$ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> _1 _2 .fq <PATH_TO_CENTRIFUGE>
+$ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> _1 _2 .fq <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
 The correct command should be:
 
 ```
-$ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> _1_001 _2_001 .fq <PATH_TO_CENTRIFUGE>
+$ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> _1_001 _2_001 .fq <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
 ### Running MicrobialPip or ViralPip

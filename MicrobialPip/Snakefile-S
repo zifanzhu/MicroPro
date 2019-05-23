@@ -6,7 +6,7 @@ include: "snake-binning-S"
 
 rule all:
     input:
-        "res/centrifuge_species_abundance.csv",
-        "res/centrifuge_species_abundance.rds",
+        "res/centrifuge_abundance.csv",
+        "res/centrifuge_abundance.rds",
         "res/unknown_abundance.csv",
         "res/unknown_abundance.rds"
