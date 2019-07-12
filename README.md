@@ -1,6 +1,6 @@
 # MicroPro
 
-MicroPro is a general framework for profiling of both known and unknown microbial organisms for metagenomics dataset. A microbe is considered known/unknown if its whole genome is known/unknown according to the [NCBI Reference Sequence Database](https://www.ncbi.nlm.nih.gov/refseq/). MicroPro has two pipelines: [MicrobialPip](https://github.com/zifanzhu/MicroPro/MicrobialPip) and [ViralPip](https://github.com/zifanzhu/MicroPro/ViralPip). MicrobialPip considers all the microbial organisms including bacteria, archaea and viruses while ViralPip only extracts known and unknown viruses from the provided metagenomics dataset.
+MicroPro is a software to perform profiling of both known and unknown microbial organisms for metagenomic dataset. A microbe is considered known/unknown if its whole genome is known/unknown according to the [NCBI Reference Sequence Database](https://www.ncbi.nlm.nih.gov/refseq/). MicroPro has two pipelines: [MicrobialPip](https://github.com/zifanzhu/MicroPro/MicrobialPip) and [ViralPip](https://github.com/zifanzhu/MicroPro/ViralPip). MicrobialPip considers all the microbial organisms including bacteria, archaea and viruses while ViralPip only extracts known and unknown viruses from the provided metagenomics dataset.
 
 ## Description
 
