@@ -159,6 +159,12 @@ The intermediate results are stored in corresponding folders. In particular, cen
 
 The intermediate log and benchmark files are stored in `logs/` and `benchmarks/`. The benchmark file records the wall time and the memory usage of a particular intermediate process.
 
+## Citation
+
+If you use MicroPro, please cite the following paper:
+
+[Zhu Z, Ren J, Michail S, Sun F: MicroPro: using metagenomic unmapped reads to provide insights into human microbiota and disease associations. *Genome Biol* 2019, 20:154](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1773-5)
+
 ## Copyright and License Information
 
 Copyright (C) 2018 University of Southern California
