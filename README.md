@@ -19,13 +19,19 @@ MicrobialPip and ViralPip are mostly similar except that ViralPip has additional
 
 Depedencies of MicroPro are listed below. You can click the software name to navigate to its website. Note that after installing each dependency, you should [add it to path](https://unix.stackexchange.com/questions/26047/how-to-correctly-add-a-path-to-path) to ensure MicroPro's normal run.
 
-- Python 3 (>= 3.5) version of [Miniconda](https://conda.io/miniconda.html) and [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) (>= 5.3.0)
-  - MicroPro is realized via Snakemake [1], a text-based workflow system. Thus, Snakemake is a must for running any pipeline of MicroPro. With a Python 3 version of Miniconda install, you can install Snakemake using the following command: (See [Snakemake manual](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) for more.)
+- Python 3 (>= 3.5) version of [Miniconda](https://conda.io/miniconda.html), [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) (== 5.3.0) and python 3 package "psutil" (>= 5.6.3)
+  - MicroPro is realized via Snakemake [1], a text-based workflow system. Thus, Snakemake is a must for running any pipeline of MicroPro. With a Python 3 version of Miniconda installed, you can install Snakemake using the following command: (See [Snakemake manual](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) for more.)
 
     ```
-    $ conda install -c bioconda -c conda-forge snakemake
+    $ pip3 install snakemake==5.3.0
     ```
-
+    Be sure to install Snakemake with version 5.3.0. A higher version may cause MicroPro to crash.
+  - Python 3 package "psutil" is needed when running Snakemake. It can be installed using the following command:
+  
+    ```
+    $ pip3 install psutil
+    ```
+  
 - [Centrifuge](https://ccb.jhu.edu/software/centrifuge/) (>= 1.0.3)
   - Centrifuge [2] is used for sequence alignment in Module 1. After installing Centrifuge, you need to download and index the reference genomes for bacteria, archaea and viruses from NCBI Refseq Database with the following commands: (See [Centrifuge manual](https://ccb.jhu.edu/software/centrifuge/manual.shtml#database-download-and-index-building) for more.)
 
