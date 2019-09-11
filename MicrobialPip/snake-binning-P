@@ -41,7 +41,8 @@ rule unknown_abund:
               ".idx" for s in SAMPLE],
         i3 = directory("3_cross_assembly/megahit_out"),
         i4 = "docs/wc_all",
-        i5 = "docs/wc_unmapped"
+        i5 = "docs/wc_unmapped",
+        i6 = "res/centrifuge_abundance.rds"
     output:
         "res/unknown_abundance.csv",
         "res/unknown_abundance.rds",
