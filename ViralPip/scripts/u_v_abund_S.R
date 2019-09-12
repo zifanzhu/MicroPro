@@ -92,7 +92,7 @@ unmapped <- fread("docs/wc_unmapped")
 ump <- sum(all$V1) / unmapped$V1[1]
 ctg <- fread("4_virfinder/4_1_line_count/line_count")
 v_ctg <- fread("4_virfinder/4_4_vf_summary/wc_vf_filtered")
-vp <- v_ctg / ctg
+vp <- v_ctg$V1[1] / ctg$V1[1]
 
 k_abund <- readRDS("res/centrifuge_viral_abundance.rds")
 uk_abund <- readRDS("res/unknown_viral_abundance.rds")
