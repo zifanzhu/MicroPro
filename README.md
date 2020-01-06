@@ -2,7 +2,13 @@
 
 [![DOI](https://zenodo.org/badge/150142255.svg)](https://zenodo.org/badge/latestdoi/150142255)
 
-MicroPro is a software to perform profiling of both known and unknown microbial organisms for metagenomic dataset. A microbe is considered known/unknown if its whole genome is known/unknown according to the [NCBI Reference Sequence Database](https://www.ncbi.nlm.nih.gov/refseq/). MicroPro has two pipelines: [MicrobialPip](https://github.com/zifanzhu/MicroPro/MicrobialPip) and [ViralPip](https://github.com/zifanzhu/MicroPro/ViralPip). MicrobialPip considers all the microbial organisms including bacteria, archaea and viruses while ViralPip only extracts known and unknown viruses from the provided metagenomics dataset.
+MicroPro is a software to perform profiling of both known and unknown microbial organisms for metagenomic dataset. A microbe is considered known/unknown if its whole genome is known/unknown according to the [NCBI Reference Sequence Database](https://www.ncbi.nlm.nih.gov/refseq/). MicroPro has two pipelines: [MicrobialPip](https://github.com/zifanzhu/MicroPro/MicrobialPip) and [ViralPip](https://github.com/zifanzhu/MicroPro/ViralPip). MicrobialPip considers all the microbial organisms including bacteria, archaea and viruses while ViralPip only extracts known and unknown viruses from the provided metagenomics dataset. More details of MicroPro are provided in the following paper:
+
+[Zhu Z, Ren J, Michail S, Sun F: MicroPro: using metagenomic unmapped reads to provide insights into human microbiota and disease associations. *Genome Biol* 2019, 20:154](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1773-5)
+
+## Latest news
+
+- A new release of MicroPro (v1.0.1) is out. It fixes a few bugs in the old version (thanks to [JinqunHuang](https://github.com/zifanzhu/MicroPro/issues/2#issue-488571281) and [wangjianshou](https://github.com/zifanzhu/MicroPro/issues/1#issue-487246658)). Welcome to use! 
 
 ## Description
 
