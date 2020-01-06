@@ -86,7 +86,7 @@ if (bc < 10) {
 
 all <- fread("docs/wc_all")
 unmapped <- fread("docs/wc_unmapped")
-ump <- sum(all$V1) / unmapped$V1[1]
+ump <- unmapped$V1[1] / sum(all$V1)
 
 k_abund <- readRDS("res/centrifuge_abundance.rds")
 uk_abund <- readRDS("res/unknown_abundance.rds")

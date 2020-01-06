@@ -89,7 +89,7 @@ if (bc < 10) {
 
 all <- fread("docs/wc_all")
 unmapped <- fread("docs/wc_unmapped")
-ump <- sum(all$V1) / unmapped$V1[1]
+ump <- unmapped$V1[1] / sum(all$V1)
 ctg <- fread("4_virfinder/4_1_line_count/line_count")
 v_ctg <- fread("4_virfinder/4_4_vf_summary/wc_vf_filtered")
 vp <- v_ctg$V1[1] / ctg$V1[1]
