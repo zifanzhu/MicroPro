@@ -28,20 +28,20 @@ Depedencies of MicroPro are listed below. You can click the software name to nav
 - Python 3 (>= 3.5) version of [Miniconda](https://conda.io/miniconda.html), [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) (== 5.3.0) and python 3 package "psutil" (>= 5.6.3)
   - MicroPro is realized via Snakemake [1], a text-based workflow system. Thus, Snakemake is a must for running any pipeline of MicroPro. With a Python 3 version of Miniconda installed, you can install Snakemake using the following command: (See [Snakemake manual](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) for more.)
 
-    ```
+    ```bash
     $ pip3 install snakemake==5.3.0
     ```
     Be sure to install Snakemake with version 5.3.0. A higher version may cause MicroPro to crash.
   - Python 3 package "psutil" is needed when running Snakemake. It can be installed using the following command:
   
-    ```
+    ```bash
     $ pip3 install psutil
     ```
   
 - [Centrifuge](https://ccb.jhu.edu/software/centrifuge/) (>= 1.0.3)
   - Centrifuge [2] is used for sequence alignment in Module 1. After installing Centrifuge, you need to download and index the reference genomes for bacteria, archaea and viruses from NCBI Refseq Database with the following commands: (See [Centrifuge manual](https://ccb.jhu.edu/software/centrifuge/manual.shtml#database-download-and-index-building) for more.)
 
-    ```
+    ```bash
     $ cd <PATH_TO_CENTRIFUGE>
     $ centrifuge-download -o taxonomy taxonomy
     $ centrifuge-download -o library -m -d "archaea,bacteria,viral" refseq > seqid2taxid.map
@@ -78,7 +78,7 @@ MicroPro accepts both single-read and paired-end sequenced reads with FASTQ form
 
 To install MicrobialPip, clone the github repository and enter MicrobialPip directory with
 
-```
+```bash
 $ git clone https://github.com/zifanzhu/MicroPro.git
 $ cd MicroPro/MicrobialPip
 ```
@@ -87,7 +87,7 @@ $ cd MicroPro/MicrobialPip
 
 URC, URC-S and FCV are three useful tools required in MicroPro. Their compiled binaries are in folder `utils/`. To make them executable, run
 
-```
+```bash
 $ chmod 755 utils/*
 ```
 
@@ -95,14 +95,14 @@ $ chmod 755 utils/*
 
 In this step, you tell MicroPro the location of your data and other parameters it needs. For single-read data, use
 
-```
+```bash
 $ R --no-save --file=scripts/parameters.R --args S <PATH_TO_DATA> <FASTQ> <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
 For paired-end data, use
 
 
-```
+```bash
 $ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> <R1> <R2> <FASTQ> <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
@@ -112,25 +112,25 @@ $ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> <R1> <R2> <FAS
 
 For example, for a single-read dataset of 3 samples with file names: `A.fastq B.fastq C.fastq`, MicroPro will use `A B C` as three samples' sample names, if you use the following command:
 
-```
+```bash
 $ R --no-save --file=scripts/parameters.R --args S <PATH_TO_DATA> .fastq <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
 For a paired-end dataset of 3 samples with file names: `A_1.fq A_2.fq B_1.fq B_2.fq C_1.fq C_2.fq`, MicroPro will also use `A B C` as three samples' sample names, if you use the following command:
 
-```
+```bash
 $ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> _1 _2 .fq <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
 Note that the catenation of strings `<sample_name_generated_by_MicroPro>`, `<R1>` (or `<R2>`) and `<FASTQ>` must be the same as the corresponding file name, like in previous example, catenating `A`, `_1` and `.fq` will give you `A_1.fq`. This means if you have a paired-end dataset of 3 samples with file names: `A_1_001.fq A_2_001.fq B_1_001.fq B_2_001.fq C_1_001.fq C_2_001.fq`, the following command will result in an error when running MicroPro, since for example the catenation of `A`, `_1` and `.fq` is not a file name.
 
-```
+```bash
 $ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> _1 _2 .fq <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
 The correct command should be:
 
-```
+```bash
 $ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> _1_001 _2_001 .fq <PATH_TO_CENTRIFUGE> <MIN_CONTIG_LENGTH>
 ```
 
@@ -138,7 +138,7 @@ $ R --no-save --file=scripts/parameters.R --args P <PATH_TO_DATA> _1_001 _2_001 
 
 To test if the installation is complete, run the following codes on a two-sample mock dataset:
 
-```
+```bash
 $ cd MicroPro/MicrobialPip
 $ chmod 755 utils/*
 $ R --no-save --file=scripts/parameters.R --args P test/data _1 _2 .fq test 1000
@@ -151,17 +151,17 @@ The pipeline takes about 15 min and outputs 6 abundance files under the 'res/' f
 
 Running MicrobialPip and ViralPip are exactly the same. You just need to make sure that you're in the folder corresponding to the pipeline you want. For single-read data, run
 
-```
-$ snakemake -j <#_cores> -p -s Snakefile-S
+```bash
+$ snakemake -j <no_cores> -p -s Snakefile-S
 ```
 
 For paired-end data, run
 
-```
-$ snakemake -j <#_cores> -p -s Snakefile-P
+```bash
+$ snakemake -j <no_cores> -p -s Snakefile-P
 ```
 
-`-j <#_cores>` will tell Snakemake to use at most `<#_cores>` cores. Snakemake supports parallel processing when providing more than one core. This saves lots of time especially when you have a large amount of samples. See [Snakemake manual](https://snakemake.readthedocs.io/en/stable/executable.html) for more Snakemake executing options.
+`-j <no_cores>` will tell Snakemake to use at most `<no_cores>` cores. Snakemake supports parallel processing when providing more than one core. This saves lots of time especially when you have a large amount of samples. See [Snakemake manual](https://snakemake.readthedocs.io/en/stable/executable.html) for more Snakemake executing options.
 
 ### Outputs
 
